@@ -1,0 +1,59 @@
+package dealsdrytask1;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import dealsdrytask.generic1_library;
+
+public class taskdeals1 {
+
+	public static void main(String[] args) throws Exception {
+		
+		/* read data from excel */
+		String excel_file_path = "C:\\Selenium folder\\demo-data.xlsx";
+		
+		/* read data from properties */
+		generic1_library  PUTIL = new generic1_library();
+		String USERNAME = PUTIL.getDatafromproperties("username");
+		String PASSWORD = PUTIL.getDatafromproperties("password");
+		String URL = PUTIL.getDatafromproperties("url");
+		
+		/* launching browser */
+		WebDriver driver = new ChromeDriver();
+		driver.get(URL);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		 
+		/*login operation */
+		driver.findElement(By.xpath("//input[@name='username']"))
+		.sendKeys(USERNAME,Keys.TAB,PASSWORD,Keys.ENTER);
+		Thread.sleep(3000);
+		System.out.println("login done successfully");
+		
+		/* user module operation */
+		driver.findElement(By.xpath("//div[@class='css-1scr8os']")).click();
+		Thread.sleep(3000);
+		
+		driver.findElement(By.xpath("(//div[@style='cursor: pointer;'])[1]")).click();
+		Thread.sleep(3000);
+		
+		driver.findElement(By.xpath("//button[@align='right']")).click();
+		Thread.sleep(3000);
+		
+		driver.findElement(By.xpath("//input[@aria-invalid='false']")).sendKeys(excel_file_path);
+		Thread.sleep(3000);
+		
+		driver.findElement(By.xpath("(//button[@type='button'])[3]")).click();
+		System.out.println("excel data import succesfully");
+		
+		driver.findElement(By.xpath("(//button[@type='button'])[3]")).click();
+		Thread.sleep(3000);
+		System.out.println("validate successfully");
+		
+
+	}
+
+}
